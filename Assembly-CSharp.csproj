@@ -63,6 +63,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\ChessBoard.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
+    <Compile Include="Assets\Scripts\Test.cs" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>E:/MyProject/GitProjcet/GoBang/GoBangClient/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>

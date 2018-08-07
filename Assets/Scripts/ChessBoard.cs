@@ -54,7 +54,7 @@ public class ChessBoard : MonoBehaviour
         {
             GameObject go = Instantiate(prefabs[0], new Vector3(pos[0] - 7, pos[1] - 7), Quaternion.identity);
             go.transform.SetParent(parent);
-            grid[pos[0], pos[1]] = 1;
+            grid[pos[0], pos[1]] = 1;               //给该点一个值
             if (CheckWinner(pos))                   //检查胜负
             {
                 GameEnd();
@@ -66,7 +66,7 @@ public class ChessBoard : MonoBehaviour
         {
             GameObject go = Instantiate(prefabs[1], new Vector3(pos[0] - 7, pos[1] - 7), Quaternion.identity);
             go.transform.SetParent(parent);
-            grid[pos[0], pos[1]] = 2;
+            grid[pos[0], pos[1]] = 2;               //给该点一个值
             if (CheckWinner(pos))                   //检查胜负
             {
                 GameEnd();
@@ -87,10 +87,10 @@ public class ChessBoard : MonoBehaviour
 
     public bool CheckWinner(int[] pos)
     {
-        if (CheckOneLien(pos, new int[2] { 1, 0 })) return true;
-        if (CheckOneLien(pos, new int[2] { 0, 1 })) return true;
-        if (CheckOneLien(pos, new int[2] { 1, 1 })) return true;
-        if (CheckOneLien(pos, new int[2] { 1, -1 })) return true;
+        if (CheckOneLien(pos, new int[2] { 1, 0 })) return true;//左右
+        if (CheckOneLien(pos, new int[2] { 0, 1 })) return true;//上下
+        if (CheckOneLien(pos, new int[2] { 1, 1 })) return true;//正比例（左下到右上）
+        if (CheckOneLien(pos, new int[2] { 1, -1 })) return true;//反比例（左上到右下）
         return false;
     }
     //检查某一行（上下左右斜上斜下）
@@ -102,6 +102,11 @@ public class ChessBoard : MonoBehaviour
             pos[0] + i >= 0 && pos[0] + i < 15 && pos[1] + j >= 0 && pos[1] + j < 15;
             i += offset[0], j += offset[1])
         {
+            /**
+             *grid初始化为15*15的二位数组，初始值为0，在上面的判断中黑棋放在某一点，则这个点的赋值为1，
+             * 白棋放在该点则该点的赋值为2，所以可以根据这个点的值来判断是什么颜色的棋或者空位置（0）
+             */
+
             if (grid[pos[0] + i, pos[1] + j] == (int)turn)
             {
                 linkNum++;
