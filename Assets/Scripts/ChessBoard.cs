@@ -18,7 +18,7 @@ public class ChessBoard : MonoBehaviour
     public float timer = 0;                            //计时器
     public bool gameStart = true;                       //是否对方下完轮到自己下了且游戏未分出胜负
     private Transform parent;
-
+    Stack<Transform> chessStack = new Stack<Transform>();
     public static ChessBoard Instacne
     {
         get
@@ -53,6 +53,7 @@ public class ChessBoard : MonoBehaviour
         if (turn == ChessType.Black)
         {
             GameObject go = Instantiate(prefabs[0], new Vector3(pos[0] - 7, pos[1] - 7), Quaternion.identity);
+            chessStack.Push(go.transform);                    //入栈
             go.transform.SetParent(parent);
             grid[pos[0], pos[1]] = 1;               //给该点一个值
             if (CheckWinner(pos))                   //检查胜负
@@ -65,6 +66,7 @@ public class ChessBoard : MonoBehaviour
         else if (turn == ChessType.White)
         {
             GameObject go = Instantiate(prefabs[1], new Vector3(pos[0] - 7, pos[1] - 7), Quaternion.identity);
+            chessStack.Push(go.transform);
             go.transform.SetParent(parent);
             grid[pos[0], pos[1]] = 2;               //给该点一个值
             if (CheckWinner(pos))                   //检查胜负
@@ -135,6 +137,19 @@ public class ChessBoard : MonoBehaviour
             if (linkNum > 4) return true;
         }
         return false;
+    }
+
+    public void RetractChess()
+    {
+        if (chessStack.Count > 1)
+        {
+            Transform pos = chessStack.Pop();                           //出栈两次（黑白棋都出栈）
+            grid[(int)(pos.position.x + 7), (int)(pos.position.y + 7)] = 0;
+            Destroy(pos);
+            pos = chessStack.Pop();                                     
+            grid[(int)(pos.position.x + 7), (int)(pos.position.y + 7)] = 0;
+            Destroy(pos);
+        }
     }
 }
 
