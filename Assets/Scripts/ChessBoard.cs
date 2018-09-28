@@ -11,14 +11,14 @@ public enum ChessType
 
 public class ChessBoard : MonoBehaviour
 {
-    private static ChessBoard _instacne;                //单例
-    public ChessType turn = ChessType.Black;            //轮到谁下棋了（黑白观）
-    public int[,] grid;                                 //棋子下在棋盘的位置
-    public GameObject[] prefabs;                        //加载黑色或者白色的棋子预制
-    public float timer = 0;                            //计时器
-    public bool gameStart = true;                       //是否对方下完轮到自己下了且游戏未分出胜负
+    private static ChessBoard _instacne;                        //单例
+    public ChessType turn = ChessType.Black;                    //轮到谁下棋了（黑，白，观）
+    public int[,] grid;                                         //棋子下在棋盘的位置
+    public GameObject[] prefabs;                                //加载黑色或者白色的棋子预制
+    public float timer = 0;                                     //计时器
+    public bool gameStart = true;                               //是否对方下完轮到自己下了且游戏未分出胜负
     private Transform parent;
-    Stack<Transform> chessStack = new Stack<Transform>();
+    public Stack<Transform> chessStack = new Stack<Transform>();       //将每次下的棋子放入栈中，悔棋时用
     public static ChessBoard Instacne
     {
         get
@@ -138,17 +138,17 @@ public class ChessBoard : MonoBehaviour
         }
         return false;
     }
-
+    //悔棋操作
     public void RetractChess()
     {
         if (chessStack.Count > 1)
         {
             Transform pos = chessStack.Pop();                           //出栈两次（黑白棋都出栈）
             grid[(int)(pos.position.x + 7), (int)(pos.position.y + 7)] = 0;
-            Destroy(pos);
+            Destroy(pos.gameObject);
             pos = chessStack.Pop();                                     
             grid[(int)(pos.position.x + 7), (int)(pos.position.y + 7)] = 0;
-            Destroy(pos);
+            Destroy(pos.gameObject);
         }
     }
 }

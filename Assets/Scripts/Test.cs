@@ -11,15 +11,19 @@ using UnityEngine;
 
 public class Test : MonoBehaviour
 {
-    public int[,] array;
     void Start()
     {
-        array = new int[15, 15];
-        Debug.Log(array[2, 2]);
+
     }
 
     void Update()
     {
-
+        if (Input.GetMouseButtonDown(0))
+        {
+            Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            /*print((int)(pos.x - 0.5f));
+            print((int)(pos.y + 0.5f));
+            print((int)pos.z);*/
+        }
     }
 }

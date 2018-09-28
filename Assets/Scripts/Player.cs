@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Player : MonoBehaviour
 {
     public ChessType chessColor = ChessType.Black;
 
-    void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
         if (chessColor == ChessBoard.Instacne.turn && ChessBoard.Instacne.timer > 0.05f)
         {
@@ -15,9 +16,9 @@ public class Player : MonoBehaviour
 
     }
 
-    void PlayChess()
+    public virtual void PlayChess()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
         {
             Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             //print((int)(pos.x + 7.5f) + "------------" + (int)(pos.y + 7.5f));
