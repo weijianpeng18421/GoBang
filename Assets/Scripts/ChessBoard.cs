@@ -53,7 +53,7 @@ public class ChessBoard : MonoBehaviour
         if (turn == ChessType.Black)
         {
             GameObject go = Instantiate(prefabs[0], new Vector3(pos[0] - 7, pos[1] - 7), Quaternion.identity);
-            chessStack.Push(go.transform);                    //入栈
+            chessStack.Push(go.transform);          //入栈
             go.transform.SetParent(parent);
             grid[pos[0], pos[1]] = 1;               //给该点一个值
             if (CheckWinner(pos))                   //检查胜负

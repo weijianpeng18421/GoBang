@@ -1,1 +1,0 @@
-E:\MyProject\GitProjcet\GoBang\GoBangClient\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
